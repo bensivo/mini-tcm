@@ -1,0 +1,111 @@
+body {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+
+    margin: 0;
+
+    height: 100vh;
+    overflow-y:hidden;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 38px;
+}
+
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
+
+header {
+    display: flex;
+    box-shadow: 0px 2px 8px -6px black;
+    flex-direction: row;
+    padding: 12px;
+    z-index: 1;
+}
+
+nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    display: inline-block;
+    font-weight: 300;
+    text-decoration: none;
+    color: black;
+}
+
+nav span.divider {
+    display: inline-block;
+    border-left: 1px solid #9d9d9d;
+    height: 80%;
+    margin: 10px;
+}
+
+div#not-header {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+aside {
+    background-color: white;
+    box-shadow: 2px 9px 12px -10px black;
+    min-width: 200px; /* TODO remove hard-coded */
+    height: 100%;
+
+    padding: 12px;
+}
+
+main {
+    flex-grow: 1;
+    background-color: #e7e7e7;
+    padding: 24px;
+}
+
+.ri-folder-fill {
+    color: #64C5FB;
+}
+
+div.test-case-bar {
+    display: flex; 
+    flex-direction: row;
+    height: fit-content;
+    width: 80ch;
+    background-color: white;
+    box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+div.test-case-selector {
+    width: 38px;
+    display: inline-block;
+    background-color: #D0D0D0;
+}
+div.test-case-name {
+    line-height: 38px;
+    margin-left: 16px;
+}
+div.test-case-actions {
+    margin-left: auto;
+    margin-right: 16px;
+    line-height: 38px;
+}
+
+button {
+    background-color: #64C5FB;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+}
+button:hover {
+    box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.2);
+}
