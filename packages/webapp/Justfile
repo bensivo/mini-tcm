@@ -3,3 +3,6 @@ default:
 
 run:
     go run cmd/mini-tcm/main.go
+
+tmp *args:
+    go run cmd/tmp/main.go {{args}}
