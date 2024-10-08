@@ -2,7 +2,7 @@ default:
     just --list
 
 run:
-    go run cmd/mini-tcm/main.go
+    go run cmd/mini-tcm/main.go --dir ../../examples/md/tcm
 
 tmp *args:
     go run cmd/tmp/main.go {{args}}

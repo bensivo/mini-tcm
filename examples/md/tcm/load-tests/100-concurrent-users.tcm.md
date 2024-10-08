@@ -1,9 +1,6 @@
 ---
 id: TC-1
-kind: "jmeter"
 name: "100 concurrent users"
-frequency: 2
-risk: 4
 ---
 
 ## Spec:

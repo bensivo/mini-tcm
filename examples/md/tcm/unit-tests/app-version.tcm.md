@@ -1,9 +1,6 @@
 ---
 id: TC-2
-kind: "jest"
 name: "app-version"
-frequency: 5
-risk: 4
 ---
 
 ## Spec
