@@ -44,25 +44,45 @@
 
             <main id="content">
                 {{range $tc := .TestCases }}
-                    <div class="test-case-bar">
-                        <div class="test-case-selector"></div>
-                        <div class="test-case-name">
-                            {{$tc.Id}} {{$tc.Name}}
-                        </div>
-                        <div class="test-case-actions">
-                            <i class="ri-arrow-down-wide-line"></i>
-                        </div>
-                    </div>
+                    <div class="test-case">
+                        <div class="test-case-bar">
+                            <div class="test-case-selector"></div>
+                            <label class="test-case-name"> {{$tc.Id}} {{$tc.Name}} </label>
+                            <input type="checkbox" class="test-case-expand"/>
 
-                    <!-- <div>
-                        {{$tc.SpecMd}}
+                            <i class="ri-arrow-down-wide-line collapsed"></i>
+                            <i class="ri-arrow-up-wide-line expanded"></i>
+                        </div>
+
+                        <div class="test-case-expand-content">
+                            <div class="test-case-section">
+                                <div class="test-case-section-header">
+                                    <h4>Spec</h4>
+                                </div>
+                                <div class="test-case-section-body">
+                                    {{$tc.SpecHtml}}
+                                </div>
+                            </div>
+
+                            <div class="test-case-section">
+                                <div class="test-case-section-header">
+                                    <h4>Steps</h4>
+                                </div>
+                                <div class="test-case-section-body">
+                                    {{$tc.StepsHtml}}
+                                </div>
+                            </div>
+
+                            <div class="test-case-section">
+                                <div class="test-case-section-header">
+                                    <h4>Expected Results</h4>
+                                </div>
+                                <div class="test-case-section-body">
+                                    {{$tc.ExpectedResultHtml}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        {{$tc.StepsMd}}
-                    </div>
-                    <div>
-                        {{$tc.ExpectedResultMd}}
-                    </div> -->
                 {{end}}
 
                 <button>New Test</button>

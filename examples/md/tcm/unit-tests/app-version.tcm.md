@@ -8,8 +8,7 @@ The /health endpoint should return the app version, pulled from env variables
 
 ## Steps
 Run via Jest
-
-```
+```bash
 cd packages/webapp
 npx jest
 ```
