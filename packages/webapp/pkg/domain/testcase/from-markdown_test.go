@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/bensivo/mini-tcm/packages/webapp/pkg/testcase"
+	"github.com/bensivo/mini-tcm/packages/webapp/pkg/domain/testcase"
 )
 
 var FromMarkdownTestData = []struct {

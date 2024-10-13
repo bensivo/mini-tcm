@@ -1,3 +1,10 @@
+<!-- TODO: 
+
+    Refactor this, so we have an html tepmplates/ folder, with a bunch of reusable templates
+    Then, we have a specific tempalte for each page
+
+    See: https://www.reddit.com/r/golang/comments/16i5h45/comment/k0jaqmk/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button 
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,14 +39,23 @@
 
         <div id="not-header">
             <aside>
-                <div>
+                <!-- Reference: https://gist.github.com/mxlje/8e6279a90dc8f79f65fa8c855e1d7a79 -->
+                {{ define "folder" }}
+                    <a href="/testcases{{.PathRel}}">
                     <i class="ri-folder-fill"></i>
-                    Test Case
-                </div>
-                <div>
-                    <i class="ri-folder-fill"></i>
-                    Test Case
-                </div>
+                    {{ .Name }}
+                    </a>
+                    {{ if gt (len .Children) 0 }}
+                    <ul>
+                        {{ range .Children }}
+                            <li>
+                                {{ template "folder" .}}
+                            </li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+                {{ end }}
+                <ul>{{ template "folder" .Folder}}</ul>
             </aside>
 
             <main id="content">
