@@ -1,10 +1,10 @@
 ---
-id: TC-1
-name: "100 concurrent users"
+id: TC-2
+name: "200 concurrent users"
 ---
 
 ## Spec:
-The application should be able to handle 100 concurrent requests in less than 2s each
+The application should be able to handle 200 concurrent requests in less than 2s each
 
 ## Steps:
 1. Open JMeter
