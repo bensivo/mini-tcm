@@ -1,0 +1,42 @@
+<!-- Renders a Test Case as a single bar, expandible -->
+{{ define "testcase" }}
+    <div class="test-case">
+        <div class="test-case-bar">
+            <div class="test-case-selector"></div>
+            <label class="test-case-name"> {{.Id}} {{.Name}} </label>
+            <input type="checkbox" class="test-case-expand"/>
+
+            <i class="ri-arrow-down-wide-line collapsed"></i>
+            <i class="ri-arrow-up-wide-line expanded"></i>
+        </div>
+
+        <div class="test-case-expand-content">
+            <div class="test-case-section">
+                <div class="test-case-section-header">
+                    <h4>Spec</h4>
+                </div>
+                <div class="test-case-section-body">
+                    {{.SpecHtml}}
+                </div>
+            </div>
+
+            <div class="test-case-section">
+                <div class="test-case-section-header">
+                    <h4>Steps</h4>
+                </div>
+                <div class="test-case-section-body">
+                    {{.StepsHtml}}
+                </div>
+            </div>
+
+            <div class="test-case-section">
+                <div class="test-case-section-header">
+                    <h4>Expected Results</h4>
+                </div>
+                <div class="test-case-section-body">
+                    {{.ExpectedResultHtml}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}

@@ -14,27 +14,31 @@ type Server struct {
 	TestCaseDir string
 }
 
+// Stores parsed html templates, so we don't have to parse them every time we render a page
+var tmpl *template.Template
+
 func (s *Server) Serve() {
+	// Parse all templates in the templates directory, save in gloval variable
+	t, err := template.New("").ParseGlob("templates/*.template.html")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	tmpl = t
+
+	// Define routes, and start server
 	mux := http.NewServeMux()
-
-	// TODO: change the homepage to just a splash screen with 2 options "Manage Test Cases", "Run Test Cases"
-	mux.HandleFunc("/", s.HomepageHandler)
-
+	mux.HandleFunc("/", s.HomepageHandler) // TODO: change the homepage to just a splash screen with 2 options "Manage Test Cases", "Run Test Cases"
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	// TODO: add another route /testcases/{path+}, which serves all the test cases in taht path, and keeps everything relative to that path
 
 	host := fmt.Sprintf(":%d", s.Port)
+	fmt.Println("Listening on", host)
 	http.ListenAndServe(host, mux)
 
 }
 
 func (s *Server) HomepageHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("html/index.template.html")
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "failed to load template index.html", http.StatusInternalServerError)
-		return
-	}
-
 	tcs, err := testcase.LoadFromDir(s.TestCaseDir)
 	if err != nil {
 		fmt.Println(err)
@@ -76,11 +80,17 @@ func (s *Server) HomepageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t.Execute(w, struct {
+	err = tmpl.ExecuteTemplate(w, "homepage", struct {
 		TestCases []TestCaseRendered
 		Folder    *folders.Folder
 	}{
 		TestCases: tcsRendered,
 		Folder:    folder,
 	})
+
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "failed to execute template", http.StatusInternalServerError)
+		return
+	}
 }

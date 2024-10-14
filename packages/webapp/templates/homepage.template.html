@@ -1,0 +1,50 @@
+{{ define "homepage" }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>mini-tcm</title>
+
+        <!-- Remixicon -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+
+        <!-- Google Fonts (Ubuntu) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+        <!-- HTMX -->
+        <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+
+        <!-- My CSS -->
+        <link rel="stylesheet" href="static/styles.css">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    </head>
+    <body>
+        <header>
+            <h1>mini-tcm</h1>
+            <nav>
+                <a href="/test-runs">Test Runs</a>
+                <span class="divider"></span>
+                <a href="/test-cases">Test Cases</a>
+            </nav>
+        </header>
+
+        <div id="not-header">
+            <aside>
+                <ul>{{ template "folder" .Folder}}</ul>
+            </aside>
+
+            <main id="content">
+                {{range $tc := .TestCases }}
+                    {{ template "testcase" $tc}}
+                {{end}}
+
+                <button>New Test</button>
+            </main>
+
+        </div>
+    </body>
+</html>
+{{ end }}

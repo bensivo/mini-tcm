@@ -14,8 +14,8 @@ type Folder struct {
 	Children []*Folder
 }
 
-// LoadFromFs creates a folder object based on a filesystem directory path, recursively
-// walking the filesystem to populate folder object and all of its children.
+// LoadFromFs instantiates a folder struct based on a filesystem directory path, recursively
+// walking the filesystem to populate the folder and all of its children.
 func LoadFromFs(basePath string) (*Folder, error) {
 	basePathAbs, err := filepath.Abs(basePath)
 	if err != nil {
@@ -29,34 +29,38 @@ func LoadFromFs(basePath string) (*Folder, error) {
 			return err
 		}
 
+		pathAbs := path // Becuase we called filepath.Abs earlier on basePath, this path will always be abs too
+
 		if d.IsDir() {
-			if path == basePathAbs { // Handle root folder
+			if pathAbs == basePathAbs { // Handle root folder
 				folder := Folder{
 					Name:     d.Name(),
 					PathRel:  "/",
-					PathAbs:  path,
+					PathAbs:  pathAbs,
 					Children: []*Folder{},
 				}
 				foldersMap[path] = &folder
 				return nil
 			}
 
-			parentPath := filepath.Dir(path)
+			// Handle any non-foot folder
+			parentPath := filepath.Dir(pathAbs)
 			parentFolder, ok := foldersMap[parentPath]
 			if !ok {
-				// NOTE: in theory this should never happen, because filepath.WalkDir uses a depth-first search
-				return fmt.Errorf("parent folder not found for %s", path)
+				// NOTE: in theory this should never happen, because filepath.WalkDir uses a depth-first search,
+				// we should always hit the parent folder before any of its children.
+				return fmt.Errorf("parent folder not found for %s", pathAbs)
 			}
 
-			pathRel := strings.Replace(path, basePathAbs, "", 1)
+			pathRel := strings.Replace(pathAbs, basePathAbs, "", 1)
 			folder := Folder{
 				Name:     d.Name(),
 				PathRel:  pathRel,
-				PathAbs:  path,
+				PathAbs:  pathAbs,
 				Children: []*Folder{},
 			}
 			parentFolder.Children = append(parentFolder.Children, &folder) // Add this folder to its parent's "children"
-			foldersMap[path] = &folder                                     // Add this folder to the foldersMap, in case it's a parent too
+			foldersMap[pathAbs] = &folder                                  // Add this folder to the foldersMap, in case it's a parent too
 		}
 
 		return nil
